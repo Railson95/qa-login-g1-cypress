@@ -87,4 +87,16 @@ describe("Login", () => {
         expect(mensagem).to.eq("Your username is invalid!");
       });
   });
+
+  it("Login com nome em branco e senha inválida", () => {
+    cy.get("#password").type("teste123");
+    cy.contains("button", "Login").should("be.visible").click();
+
+    cy.get("#flash")
+      .invoke("text")
+      .then((text) => {
+        const mensagem = text.replace("×", "").trim();
+        expect(mensagem).to.eq("Your username is invalid!");
+      });
+  });
 });
