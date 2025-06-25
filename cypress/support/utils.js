@@ -1,4 +1,4 @@
-export function verificarMensagem(mensagemEsperada) {
+export function checkMensagem(mensagemEsperada) {
   cy.get("#flash")
     .invoke("text")
     .then((text) => {

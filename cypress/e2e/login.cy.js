@@ -1,5 +1,5 @@
-import { URL_LOGIN, MENSAGENS } from "../support/constants";
-import { verificarMensagem } from "../support/utils";
+import { URL_LOGIN, MESSAGES } from "../support/constants";
+import { checkMessage } from "../support/utils";
 
 describe("Login", () => {
   let loginData;
@@ -7,64 +7,64 @@ describe("Login", () => {
   beforeEach(() => {
     cy.visit(URL_LOGIN);
     cy.fixture("loginData").then((data) => {
-      loginData = data[0]; // acessa o primeiro objeto do array
+      loginData = data[0]; // access the first object in the array
     });
   });
 
-  it("Login com nome e senha válidos e verifica redirecionamento para area de segurança", () => {
+  it("Login with valid username and password and checks secure area redirection", () => {
     cy.login(loginData.userNameValid, loginData.passwordValid)
 
-    cy.contains("#flash", MENSAGENS.loginSucesso).should("be.visible");
+    cy.contains("#flash", MESSAGES.loginSuccess).should("be.visible");
   });
 
-  it("Login com nome válido e senha inválida", () => {
+  it("Login with valid username and invalid password", () => {
     cy.login(loginData.userNameValid, loginData.passwordInvalid)
 
-    verificarMensagem(MENSAGENS.senhaInvalida);
+    checkMessage(MESSAGES.invalidPassword);
   });
 
-  it("Login com nome válido e senha em branco", () => {
+  it("Login with valid username and blank password", () => {
     cy.get("#username").type("tomsmith");
     cy.contains("button", "Login").should("be.visible").click();
 
-    verificarMensagem(MENSAGENS.senhaInvalida);
+    checkMessage(MESSAGES.invalidPassword);
   });
 
-  it("Login com nome inválido e senha válida", () => {
+  it("Login with invalid username and valid password", () => {
     cy.login(loginData.userNameInvalid, loginData.passwordValid)
-    verificarMensagem(MENSAGENS.usuarioInvalido);
+    checkMessage(MESSAGES.invalidUsername);
   });
 
-  it("Login com nome inválido e senha inválida", () => {
+  it("Login with invalid username and invalid password", () => {
     cy.login(loginData.userNameInvalid, loginData.passwordInvalid)
 
-    verificarMensagem(MENSAGENS.usuarioInvalido);
+    checkMessage(MESSAGES.invalidUsername);
   });
 
-  it("Login com nome inválido e senha em branco", () => {
+  it("Login with invalid username and blank password", () => {
     cy.get("#username").type("tomsmith1");
     cy.contains("button", "Login").should("be.visible").click();
 
-    verificarMensagem(MENSAGENS.usuarioInvalido);
+    checkMessage(MESSAGES.invalidUsername);
   });
 
-  it("Login com nome em branco e senha válida", () => {
+  it("Login with blank username and valid password", () => {
     cy.get("#password").type("SuperSecretPassword!");
     cy.contains("button", "Login").should("be.visible").click();
 
-    verificarMensagem(MENSAGENS.usuarioInvalido);
+    checkMessage(MESSAGES.invalidUsername);
   });
 
-  it("Login com nome em branco e senha inválida", () => {
+  it("Login with blank username and invalid password", () => {
     cy.get("#password").type("teste123");
     cy.contains("button", "Login").should("be.visible").click();
 
-    verificarMensagem(MENSAGENS.usuarioInvalido);
+    checkMessage(MESSAGES.invalidUsername);
   });
 
-  it("Login com nome e senha em branco", () => {
+  it("Login with blank username and blank password", () => {
     cy.contains("button", "Login").should("be.visible").click();
 
-    verificarMensagem(MENSAGENS.usuarioInvalido);
+    checkMessage(MESSAGES.invalidUsername);
   });
 });
