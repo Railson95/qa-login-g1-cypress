@@ -1,4 +1,5 @@
 import { URL_LOGIN, MENSAGENS } from '../support/constants';
+import {verificarMensagem} from '../support/utils'
 
 describe("Login", () => {
   beforeEach(() => {
@@ -20,24 +21,14 @@ describe("Login", () => {
     cy.get("#password").type("test123");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your password is invalid!");
-      });
+    verificarMensagem(MENSAGENS.senhaInvalida)
   });
 
   it("Login com nome válido e senha em branco", () => {
     cy.get("#username").type("tomsmith");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your password is invalid!");
-      });
+    verificarMensagem(MENSAGENS.senhaInvalida)
   });
 
   it("Login com nome inválido e senha válida", () => {
@@ -45,12 +36,7 @@ describe("Login", () => {
     cy.get("#password").type("test123");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your username is invalid!");
-      });
+    verificarMensagem(MENSAGENS.usuarioInvalido)
   });
 
   it("Login com nome inválido e senha inválida", () => {
@@ -58,58 +44,33 @@ describe("Login", () => {
     cy.get("#password").type("test123");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your username is invalid!");
-      });
+    verificarMensagem(MENSAGENS.usuarioInvalido)
   });
 
   it("Login com nome inválido e senha em branco", () => {
     cy.get("#username").type("tomsmith1");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your username is invalid!");
-      });
+    verificarMensagem(MENSAGENS.usuarioInvalido)
   });
 
   it("Login com nome em branco e senha válida", () => {
     cy.get("#password").type("SuperSecretPassword!");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your username is invalid!");
-      });
+    verificarMensagem(MENSAGENS.usuarioInvalido)
   });
 
   it("Login com nome em branco e senha inválida", () => {
     cy.get("#password").type("teste123");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your username is invalid!");
-      });
+    verificarMensagem(MENSAGENS.usuarioInvalido)
   });
 
   it("Login com nome e senha em branco", () => {
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.get("#flash")
-      .invoke("text")
-      .then((text) => {
-        const mensagem = text.replace("×", "").trim();
-        expect(mensagem).to.eq("Your username is invalid!");
-      });
+    verificarMensagem(MENSAGENS.usuarioInvalido)
   });
 });
