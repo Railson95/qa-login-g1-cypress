@@ -1,6 +1,8 @@
+import { URL_LOGIN, MENSAGENS } from '../support/constants';
+
 describe("Login", () => {
   beforeEach(() => {
-    cy.visit("https://the-internet.herokuapp.com/login");
+    cy.visit(URL_LOGIN);
   });
 
   it("Login com nome e senha válidos e verifica redirecionamento para area de segurança", () => {
@@ -8,7 +10,7 @@ describe("Login", () => {
     cy.get("#password").type("SuperSecretPassword!");
     cy.contains("button", "Login").should("be.visible").click();
 
-    cy.contains("#flash", "You logged into a secure area!").should(
+    cy.contains("#flash", MENSAGENS.loginSucesso).should(
       "be.visible"
     );
   });
