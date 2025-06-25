@@ -50,4 +50,17 @@ describe("Login", () => {
         expect(mensagem).to.eq("Your username is invalid!");
       });
   });
+
+  it("Login com nome inválido e senha inválida", () => {
+    cy.get("#username").type("tomsmith1");
+    cy.get("#password").type("test123");
+    cy.contains("button", "Login").should("be.visible").click();
+
+    cy.get("#flash")
+      .invoke("text")
+      .then((text) => {
+        const mensagem = text.replace("×", "").trim();
+        expect(mensagem).to.eq("Your username is invalid!");
+      });
+  });
 });
