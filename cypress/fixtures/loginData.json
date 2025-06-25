@@ -1,0 +1,10 @@
+[
+  {
+    "userNameValid": "tomsmith",
+    "userNameInvalid": "nomeErrado",
+    "userNameBlank": "",
+    "passwordValid": "SuperSecretPassword!",
+    "passwordInvalid": "senhaErrada",
+    "passwordBlank": ""
+  }
+]
