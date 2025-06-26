@@ -14,7 +14,7 @@ describe("Login", () => {
   it("Login with valid username and password and checks secure area redirection", () => {
     cy.login(loginData.userNameValid, loginData.passwordValid)
 
-    cy.contains("#flash", "Menssagem errada").should("be.visible");
+    cy.contains("#flash", MESSAGE.loginSuccess).should("be.visible");
   });
 
   it("Login with valid username and invalid password", () => {
