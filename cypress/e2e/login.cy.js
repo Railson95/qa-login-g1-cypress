@@ -1,4 +1,4 @@
-import { URL_LOGIN, MESSAGES } from "../support/constants";
+import { URL_LOGIN, MESSAGE } from "../support/constants";
 import { checkMessage } from "../support/utils";
 
 describe("Login", () => {
@@ -14,57 +14,57 @@ describe("Login", () => {
   it("Login with valid username and password and checks secure area redirection", () => {
     cy.login(loginData.userNameValid, loginData.passwordValid)
 
-    cy.contains("#flash", MESSAGES.loginSuccess).should("be.visible");
+    cy.contains("#flash", MESSAGE.loginSuccess).should("be.visible");
   });
 
   it("Login with valid username and invalid password", () => {
     cy.login(loginData.userNameValid, loginData.passwordInvalid)
 
-    checkMessage(MESSAGES.invalidPassword);
+    checkMessage(MESSAGE.invalidPassword);
   });
 
   it("Login with valid username and blank password", () => {
     cy.get("#username").type("tomsmith");
     cy.contains("button", "Login").should("be.visible").click();
 
-    checkMessage(MESSAGES.invalidPassword);
+    checkMessage(MESSAGE.invalidPassword);
   });
 
   it("Login with invalid username and valid password", () => {
     cy.login(loginData.userNameInvalid, loginData.passwordValid)
-    checkMessage(MESSAGES.invalidUsername);
+    checkMessage(MESSAGE.invalidUsername);
   });
 
   it("Login with invalid username and invalid password", () => {
     cy.login(loginData.userNameInvalid, loginData.passwordInvalid)
 
-    checkMessage(MESSAGES.invalidUsername);
+    checkMessage(MESSAGE.invalidUsername);
   });
 
   it("Login with invalid username and blank password", () => {
     cy.get("#username").type("tomsmith1");
     cy.contains("button", "Login").should("be.visible").click();
 
-    checkMessage(MESSAGES.invalidUsername);
+    checkMessage(MESSAGE.invalidUsername);
   });
 
   it("Login with blank username and valid password", () => {
     cy.get("#password").type("SuperSecretPassword!");
     cy.contains("button", "Login").should("be.visible").click();
 
-    checkMessage(MESSAGES.invalidUsername);
+    checkMessage(MESSAGE.invalidUsername);
   });
 
   it("Login with blank username and invalid password", () => {
     cy.get("#password").type("teste123");
     cy.contains("button", "Login").should("be.visible").click();
 
-    checkMessage(MESSAGES.invalidUsername);
+    checkMessage(MESSAGE.invalidUsername);
   });
 
   it("Login with blank username and blank password", () => {
     cy.contains("button", "Login").should("be.visible").click();
 
-    checkMessage(MESSAGES.invalidUsername);
+    checkMessage(MESSAGE.invalidUsername);
   });
 });
